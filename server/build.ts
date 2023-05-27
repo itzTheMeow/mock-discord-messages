@@ -36,7 +36,7 @@ esbuild
     loader: { ".png": "file" },
   })
   .then(() => {
-    fs.copyFileSync("src/index.html", "dist/index.html");
+    fs.copyFileSync("test/index.html", "dist/index.html");
     init();
   })
   //@ts-ignore

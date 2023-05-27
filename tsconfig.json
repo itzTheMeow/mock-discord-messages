@@ -9,5 +9,5 @@
     "skipLibCheck": true
   },
   "include": ["server"],
-  "exclude": ["src", "dist", "serverDist"]
+  "exclude": ["src", "test", "dist", "serverDist"]
 }

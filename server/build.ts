@@ -10,7 +10,7 @@ import { init } from "./server";
 console.log("Building client...");
 esbuild
   .build({
-    entryPoints: [`./src/index.ts`],
+    entryPoints: [`./test/index.ts`],
     bundle: true,
     outdir: `./dist`,
     mainFields: ["svelte", "browser", "module", "main"],

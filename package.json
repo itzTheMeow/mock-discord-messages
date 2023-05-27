@@ -18,7 +18,7 @@
     "url": "https://github.com/itzTheMeow/svelte-daisyui-template/issues"
   },
   "homepage": "https://github.com/itzTheMeow/svelte-daisyui-template#readme",
-  "dependencies": {
+  "devDependencies": {
     "@tsconfig/svelte": "^3.0.0",
     "@types/express": "^4.17.13",
     "autoprefixer": "^10.4.8",

@@ -15,7 +15,7 @@
     avatarURL:
       "https://cdn.discordapp.com/avatars/532045776122150913/40842a9c8b8b01d00d1093d0f34f0499.webp",
   }}
-  content="testing *the* ***discord*** `markdown`"
+  content="need [inline](link) links"
   timestamp="Today at 1:47 PM"
 />
 

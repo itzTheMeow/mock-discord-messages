@@ -104,54 +104,59 @@ export function renderMarkdown(
           //TODO: codeblock
           return "";
         }
-        return `<code>${(node.content)}</code>`;
+        return `<code>${escapeHTML(node.content)}</code>`;
 
       case "inlineCode":
-        //return <DiscordInlineCode>{node.content}</DiscordInlineCode>;
-
+        return `<code>${escapeHTML(node.content)}</code>`;
 
       case "em":
-        return <DiscordItalic>{await renderNodes(node.content, context)}</DiscordItalic>;
+        return `<i>${renderNodes(node.content)}</i>`;
 
       case "strong":
-        return <DiscordBold>{await renderNodes(node.content, context)}</DiscordBold>;
+        return `<b>${renderNodes(node.content)}</b>`;
 
       case "underline":
-        return <DiscordUnderlined>{await renderNodes(node.content, context)}</DiscordUnderlined>;
+        return `<u>${renderNodes(node.content)}</u>`;
 
       case "strikethrough":
-        return <s>{await renderNodes(node.content, context)}</s>;
+        return `<s>${renderNodes(node.content)}</s>`;
 
       case "emoticon":
-        return typeof node.content === "string"
-          ? node.content
-          : await renderNodes(node.content, context);
+        return typeof node.content == "string"
+          ? escapeHTML(node.content)
+          : renderNodes(node.content);
 
       case "spoiler":
-        return <DiscordSpoiler>{await renderNodes(node.content, context)}</DiscordSpoiler>;
+        //TODO: spoiler
+        //return <DiscordSpoiler>{await renderNodes(node.content, context)}</DiscordSpoiler>;
+        return "";
 
       case "emoji":
       case "twemoji":
-        return (
+        //TODO: emoji
+        /*return (
           <DiscordCustomEmoji
             name={node.name}
             url={parseDiscordEmoji(node as APIMessageComponentEmoji)}
             embedEmoji={context.type === RenderType.EMBED}
             largeEmoji={context._internal?.largeEmojis}
           />
-        );
+        );*/
+        return "";
 
       case "timestamp":
-        return <DiscordTime timestamp={parseInt(node.timestamp) * 1000} format={node.format} />;*/
+        //TODO: timestamp
+        //return <DiscordTime timestamp={parseInt(node.timestamp) * 1000} format={node.format} />;*/
+        return "";
 
       default: {
         console.log(`Unknown node type: ${type}`, node);
-        return typeof node.content === "string"
-          ? node.content
-          : await renderNodes(node.content, context);
+        return typeof node.content == "string"
+          ? escapeHTML(node.content)
+          : renderNodes(node.content);
       }
     }
   }
 
-  return renderNodes(parsed);
+  return parsed.map(renderNodes).join("");
 }

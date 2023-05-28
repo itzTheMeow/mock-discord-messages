@@ -1,6 +1,7 @@
 <script lang="ts">
   import { DiscordDarkTheme, type DiscordTheme } from "Theme";
   import parseMarkdown from "discord-markdown-parser";
+  import { renderMarkdown, type MarkdownRenderingContext } from "utils";
 
   /**
    * The author of this message.
@@ -15,8 +16,8 @@
   export let timestamp: string | undefined = undefined;
   /** Theme to use for the message rendering. Defaults to `DiscordDarkTheme`. */
   export let theme: DiscordTheme = DiscordDarkTheme;
-
-  const parsed = parseMarkdown(content || "", "extended");
+  /** Object with users and channels to use for markdown parsing. */
+  export let context: MarkdownRenderingContext | undefined = undefined;
 </script>
 
 <div class="msg-container" style:background={theme.background} style:color={theme.text}>
@@ -33,7 +34,9 @@
       </span>
     {/if}
   </div>
-  <div class="msg-content">{content}</div>
+  <div class="msg-content">
+    {@html renderMarkdown(parseMarkdown(content || "", "extended"), context, "content")}
+  </div>
 </div>
 
 <style>

@@ -15,7 +15,7 @@
     avatarURL:
       "https://cdn.discordapp.com/avatars/532045776122150913/40842a9c8b8b01d00d1093d0f34f0499.webp",
   }}
-  content="test"
+  content="testing *the* ***discord*** `markdown`"
   timestamp="Yesterday at 11:51 PM"
 />
 
@@ -33,5 +33,10 @@
     font-family: "gg sans";
     src: url("https://file.coffee/u/98vDNq1qAGs5u42DLCItB.woff2");
     font-weight: 500;
+  }
+  @font-face {
+    font-family: "gg sans";
+    src: url("https://file.coffee/u/7kEfaQmxd95cgQtFToAwK.woff2");
+    font-weight: 700;
   }
 </style>

@@ -10,10 +10,12 @@ export function escapeHTML(html: string): string {
     .replace(/'/g, "&#039;");
 }
 
+export interface MarkdownRenderingContext {}
+
 export function renderMarkdown(
   parsed: ASTNode[],
-  data?: {},
-  context?: "content" | "reply"
+  data?: MarkdownRenderingContext,
+  context: "content" | "reply" = "content"
 ): string {
   const renderNodes = (nodes: ASTNode): string =>
     Array.isArray(nodes) ? nodes.map((node) => renderASTNode(node)).join("") : renderASTNode(nodes);
@@ -110,10 +112,10 @@ export function renderMarkdown(
         return `<code>${escapeHTML(node.content)}</code>`;
 
       case "em":
-        return `<i>${renderNodes(node.content)}</i>`;
+        return `<em>${renderNodes(node.content)}</em>`;
 
       case "strong":
-        return `<b>${renderNodes(node.content)}</b>`;
+        return `<strong>${renderNodes(node.content)}</strong>`;
 
       case "underline":
         return `<u>${renderNodes(node.content)}</u>`;

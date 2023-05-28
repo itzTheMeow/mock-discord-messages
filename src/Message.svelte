@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { DiscordDarkTheme, type DiscordTheme } from "Theme";
+  import { DiscordDarkTheme, themeString, type DiscordTheme } from "Theme";
   import parseMarkdown from "discord-markdown-parser";
   import { renderMarkdown, type MarkdownRenderingContext } from "utils";
+  import "./markdown.css";
 
   /**
    * The author of this message.
@@ -34,7 +35,7 @@
       </span>
     {/if}
   </div>
-  <div class="msg-content">
+  <div class="msg-content mdm-rendered-markdown" style={themeString(theme)}>
     {@html renderMarkdown(parseMarkdown(content || "", "extended"), context, "content")}
   </div>
 </div>

@@ -4,7 +4,6 @@ import postCssPlugin from "esbuild-style-plugin";
 import esbuildSvelte from "esbuild-svelte";
 import fs from "fs";
 import sveltePreprocess from "svelte-preprocess";
-import useTailwind from "tailwindcss";
 import { init } from "./server";
 
 console.log("Building client...");
@@ -27,7 +26,7 @@ esbuild
       }),
       postCssPlugin({
         postcss: {
-          plugins: [useTailwind, useAutoprefixer],
+          plugins: [useAutoprefixer],
         },
       }),
     ],

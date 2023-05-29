@@ -129,9 +129,9 @@ export function renderMarkdown(
           : renderNodes(node.content);
 
       case "spoiler":
-        //TODO: spoiler
-        //return <DiscordSpoiler>{await renderNodes(node.content, context)}</DiscordSpoiler>;
-        return "";
+        return `<span spoiler onclick="this.classList.add('revealed')">${renderNodes(
+          node.content
+        )}</span>`;
 
       case "emoji":
       case "twemoji":

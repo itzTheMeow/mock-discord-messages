@@ -11,11 +11,12 @@ export function escapeHTML(html: string): string {
 }
 
 export interface MarkdownRenderingContext {}
+export type MarkdownRenderingType = "content" | "reply";
 
 export function renderMarkdown(
   parsed: ASTNode[],
   data?: MarkdownRenderingContext,
-  context: "content" | "reply" = "content"
+  context: MarkdownRenderingType = "content"
 ): string {
   // adapted from https://github.com/ItzDerock/discord-html-transcripts/blob/master/src/generator/renderers/content.tsx
   const renderNodes = (nodes: ASTNode): string =>

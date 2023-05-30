@@ -1,6 +1,7 @@
 import type { RuleTypesExtended } from "discord-markdown-parser";
 import hljs from "highlight.js";
 import type { ASTNode, SingleASTNode } from "simple-markdown";
+import twemoji from "twemoji";
 
 export function escapeHTML(html: string): string {
   return html
@@ -131,10 +132,12 @@ export function renderMarkdown(
         return "";
 
       case "timestamp":
+        // can adapt from https://github.com/ItzDerock/discord-components/blob/main/packages/core/src/components/discord-time/discord-time.tsx
+        // later if needed
         if (context == "header") return renderNodes(node.content);
-        //TODO: timestamp
-        //return <DiscordTime timestamp={parseInt(node.timestamp) * 1000} format={node.format} />;*/
-        return "";
+        return `<span spoiler class="revealed">${new Date(
+          node.timestamp * 1000
+        ).toLocaleString()}</span>`;
 
       default: {
         console.log(`Unknown node type: ${type}`, node);
@@ -146,4 +149,19 @@ export function renderMarkdown(
   }
 
   return parsed.map(renderNodes).join("");
+}
+
+export function parseDiscordEmoji(emoji: { id?: string; name: string; animated?: boolean }) {
+  if (emoji.id)
+    return `https://cdn.discordapp.com/emojis/${emoji.id}.${emoji.animated ? "gif" : "png"}`;
+
+  const codepoints = twemoji.convert
+    .toCodePoint(
+      emoji.name.indexOf(String.fromCharCode(0x200d)) < 0
+        ? emoji.name.replace(/\uFE0F/g, "")
+        : emoji.name
+    )
+    .toLowerCase();
+
+  return `https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${codepoints}.svg`;
 }

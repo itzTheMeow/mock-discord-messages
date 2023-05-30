@@ -1,4 +1,5 @@
 import type { RuleTypesExtended } from "discord-markdown-parser";
+import hljs from "highlight.js";
 import type { ASTNode, SingleASTNode } from "simple-markdown";
 
 export function escapeHTML(html: string): string {
@@ -108,14 +109,19 @@ export function renderMarkdown(
 
       case "codeBlock":
         if (context !== "reply") {
-          //return <DiscordCodeBlock language={node.lang} code={node.content} />;
-          //TODO: codeblock
-          return "";
+          const language = node.lang
+            ? hljs.getLanguage(node.lang)
+              ? node.lang
+              : "plaintext"
+            : "plaintext";
+          return `<pre code><code class="hljs language-${language}">${
+            hljs.highlight(node.content, { language }).value
+          }</code></pre>`;
         }
-        return `<code>${escapeHTML(node.content)}</code>`;
+        return `<code inline>${escapeHTML(node.content)}</code>`;
 
       case "inlineCode":
-        return `<code>${escapeHTML(node.content)}</code>`;
+        return `<code inline>${escapeHTML(node.content)}</code>`;
 
       case "em":
         return `<em>${renderNodes(node.content)}</em>`;

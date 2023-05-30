@@ -8,18 +8,30 @@
   strong {
     font-weight: 700;
   }
+  pre[code] {
+    margin-top: 6px;
+    margin: 0;
+    box-sizing: border-box;
+    max-width: 90%;
+  }
   code {
+    font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console",
+      "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono",
+      "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+    border: 1px solid var(--backgroundTertiary);
+    white-space: pre-wrap;
+    line-height: 1.125rem;
+    background: var(--backgroundSecondary);
+    font-size: 0.875rem;
+    border-radius: 4px;
+  }
+  code[inline] {
+    background: var(--backgroundTertiary);
     padding: 0.2em;
     margin: -0.2em 0;
     border-radius: 3px;
     font-size: 85%;
-    font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console",
-      "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono",
-      "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
     border: none;
-    white-space: pre-wrap;
-    line-height: 1.125rem;
-    background: var(--backgroundTertiary);
   }
   a {
     color: var(--link);

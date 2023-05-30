@@ -1,6 +1,7 @@
 <script lang="ts">
   import { DiscordDarkTheme, themeString, type DiscordTheme } from "Theme";
   import parseMarkdown from "discord-markdown-parser";
+  import "highlight.js/styles/base16/helios.css";
   import { renderMarkdown, type MarkdownRenderingContext, type MarkdownRenderingType } from "utils";
   import "./markdown.scss";
 

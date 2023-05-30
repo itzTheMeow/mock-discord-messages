@@ -32,6 +32,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "discord-api-types": "^0.37.42",
     "discord-markdown-parser": "^1.1.0",
     "simple-markdown": "^0.7.3"
   }

@@ -4,6 +4,7 @@ specifiers:
   '@tsconfig/svelte': ^4.0.1
   '@types/express': ^4.17.13
   autoprefixer: ^10.4.8
+  discord-api-types: ^0.37.42
   discord-markdown-parser: ^1.1.0
   esbuild: ^0.14.51
   esbuild-style-plugin: ^1.6.0
@@ -16,6 +17,7 @@ specifiers:
   typescript: ^5.0.4
 
 dependencies:
+  discord-api-types: 0.37.42
   discord-markdown-parser: 1.1.0
   simple-markdown: 0.7.3
 
@@ -405,6 +407,10 @@ packages:
     resolution: {integrity: sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==}
     engines: {node: '>=8'}
     dev: true
+
+  /discord-api-types/0.37.42:
+    resolution: {integrity: sha512-1Huaj9cQ1W7/uryS8MZs/tZemnoKB94thM1cE40lep3rpU3q7WHqkdjN/veX0prTkYlPhcyLd/DeF/pBO8X8oQ==}
+    dev: false
 
   /discord-markdown-parser/1.1.0:
     resolution: {integrity: sha512-o2+iFgt5qer6UYY5hVTPGq2mGzleKRGYKcvymg67FdKg4AMJ061KbebKunCERWKjx79dmNHMDnGV2F0DRGCNkw==}

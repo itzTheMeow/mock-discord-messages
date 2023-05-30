@@ -73,4 +73,17 @@
       max-width: 100%;
     }
   }
+  span[mention] {
+    cursor: default;
+    transition: background-color 50ms ease-out, color 50ms ease-out, filter 50ms ease-out;
+    border-radius: 3px;
+    padding: 0 2px;
+    font-weight: 500;
+    color: var(--mentionForeground);
+    background: var(--mentionBackground);
+
+    &:hover {
+      filter: brightness(150%);
+    }
+  }
 }

@@ -1,17 +1,17 @@
 <script lang="ts">
-  import { DiscordDarkTheme, themeString, type DiscordTheme } from "Theme";
+  import { DiscordDarkTheme, themeString, type DiscordTheme } from "./Theme";
 
   // adapted from https://github.com/cubedhuang/discord-embed-creator/blob/main/src/components/DiscordEmbed.tsx
   import type { APIEmbed, APIEmbedField } from "discord-api-types/v10";
   import Markdown from "markdown.svelte";
-  import type { MarkdownRenderingContext } from "utils";
+  import type { MarkdownRenderingContext } from "./utils";
 
   /** The embed JSON to render. */
   export let embed: APIEmbed;
   /** Theme to use for the message rendering. Defaults to `DiscordDarkTheme`. */
   export let theme: DiscordTheme = DiscordDarkTheme;
   /** Object with users and channels to use for markdown parsing. */
-  export let context: MarkdownRenderingContext | undefined = undefined;
+  export let context: MarkdownRenderingContext = {};
 
   let fieldGridCols: string[] = [];
   $: {

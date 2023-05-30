@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { DiscordDarkTheme, themeString, type DiscordTheme } from "Theme";
   import Markdown from "markdown.svelte";
-  import { type MarkdownRenderingContext } from "utils";
+  import { DiscordDarkTheme, themeString, type DiscordTheme } from "./Theme";
+  import { type MarkdownRenderingContext } from "./utils";
 
   /**
    * The author of this message.
@@ -17,7 +17,7 @@
   /** Theme to use for the message rendering. Defaults to `DiscordDarkTheme`. */
   export let theme: DiscordTheme = DiscordDarkTheme;
   /** Object with users and channels to use for markdown parsing. */
-  export let context: MarkdownRenderingContext | undefined = undefined;
+  export let context: MarkdownRenderingContext = {};
 </script>
 
 <div class="msg-container" style={themeString(theme)}>

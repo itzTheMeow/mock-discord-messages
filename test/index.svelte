@@ -18,6 +18,12 @@
   timestamp="Today at {new Date().toLocaleTimeString()}"
 >
   <MessageEmbed
+    context={{
+      user(id) {
+        if (id == "192837497649827397") return { username: "Test Username" };
+        return null;
+      },
+    }}
     embed={{
       author: {
         name: "Info",
@@ -26,7 +32,7 @@
       title: "Example Title",
       url: "https://example.com",
       description:
-        "This is an example description. Markdown works too!\n\nhttps://automatic.links\n> Block Quotes\n```\nCode Blocks\n```\n*Emphasis* or _emphasis_\n`Inline code` or ``inline code``\n[Links](https://example.com)\n<@123>, <@!123>, <#123>, <@&123>, @here, @everyone mentions\n||Spoilers||\n~~Strikethrough~~\n**Strong**\n__Underline__",
+        "This is an example description. Markdown works too!\n\nhttps://automatic.links\n> Block Quotes\n```\nCode Blocks\n```\n*Emphasis* or _emphasis_\n`Inline code` or ``inline code``\n[Links](https://example.com)\n<@12345678901234567>, <@!192837497649827397>, <#12345678901234567>, <@&12345678901234567>, @here, @everyone mentions\n||Spoilers||\n~~Strikethrough~~\n**Strong**\n__Underline__",
       fields: [
         {
           name: "Field Name",

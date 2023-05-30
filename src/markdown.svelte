@@ -1,12 +1,16 @@
 <script lang="ts">
-  import { DiscordDarkTheme, themeString, type DiscordTheme } from "Theme";
   import parseMarkdown from "discord-markdown-parser";
   import "highlight.js/styles/base16/helios.css";
-  import { renderMarkdown, type MarkdownRenderingContext, type MarkdownRenderingType } from "utils";
+  import { DiscordDarkTheme, themeString, type DiscordTheme } from "./Theme";
   import "./markdown.scss";
+  import {
+    renderMarkdown,
+    type MarkdownRenderingContext,
+    type MarkdownRenderingType,
+  } from "./utils";
 
   export let content: string | undefined;
-  export let context: MarkdownRenderingContext | undefined = undefined;
+  export let context: MarkdownRenderingContext = {};
   export let type: MarkdownRenderingType = "content";
   export let theme: DiscordTheme = DiscordDarkTheme;
 </script>

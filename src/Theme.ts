@@ -4,6 +4,8 @@ export interface DiscordTheme {
   backgroundTertiary: string;
   interactiveMuted: string;
   link: string;
+  mentionBackground: string;
+  mentionForeground: string;
   text: string;
   textMuted: string;
 }
@@ -14,6 +16,8 @@ export const DiscordDarkTheme: DiscordTheme = {
   backgroundTertiary: "#1e1f22",
   interactiveMuted: "#4e5058",
   link: "#00a8fc",
+  mentionBackground: "#3c4270",
+  mentionForeground: "#c9cdfb",
   text: "#dbdee1",
   textMuted: "#949ba4",
 };

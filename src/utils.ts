@@ -11,12 +11,16 @@ export function escapeHTML(html: string): string {
     .replace(/'/g, "&#039;");
 }
 
-export interface MarkdownRenderingContext {}
+export type MarkdownRenderingContext = Partial<{
+  channel(id: string): { name: string } | null;
+  role(id: string): { name: string } | null;
+  user(id: string): { username: string } | null;
+}>;
 export type MarkdownRenderingType = "content" | "reply" | "header";
 
 export function renderMarkdown(
   parsed: ASTNode[],
-  data?: MarkdownRenderingContext,
+  data: MarkdownRenderingContext = {},
   context: MarkdownRenderingType = "content"
 ): string {
   // adapted from https://github.com/ItzDerock/discord-html-transcripts/blob/master/src/generator/renderers/content.tsx
@@ -53,59 +57,26 @@ export function renderMarkdown(
 
       case "channel": {
         if (context == "header") return renderNodes(node.content);
-        const id: string = node.id;
-        //const channel = await context.callbacks.resolveChannel(id);
-
-        //TODO: get channel from data and render
-        /*return (
-          <DiscordMention
-            type={
-              channel ? (channel.isDMBased() ? "channel" : getChannelType(channel.type)) : "channel"
-            }
-          >
-            {channel ? (channel.isDMBased() ? "DM Channel" : channel.name) : `<#${id}>`}
-          </DiscordMention>
-        );*/
-        return "";
+        const channel = data?.channel?.(node.id);
+        return `<span mention>${channel ? `#${channel.name}` : `<#${node.id}>`}</span>`;
       }
 
       case "role": {
         if (context == "header") return renderNodes(node.content);
-        const id: string = node.id;
-        //const role = await context.callbacks.resolveRole(id);
-
-        //TODO: get role from data and render
-        /* return (
-          <DiscordMention
-            type="role"
-            color={context.type === RenderType.REPLY ? undefined : role?.hexColor}
-          >
-            {role ? role.name : `<@&${id}>`}
-          </DiscordMention>
-        );*/
-        return "";
+        const role = data?.role?.(node.id);
+        return `<span mention>${role ? `@${role.name}` : `<@&${node.id}>`}</span>`;
       }
 
       case "user": {
         if (context == "header") return renderNodes(node.content);
-        const id: string = node.id;
-        //const user = await context.callbacks.resolveUser(id);
-
-        //TODO: get user from data and render
-        //return <DiscordMention type="user">{user ? user.username : `<@${id}>`}</DiscordMention>;
-        return "";
+        const user = data?.user?.(node.id);
+        return `<span mention>${user ? `@${user.username}` : `<@${node.id}>`}</span>`;
       }
 
       case "here":
       case "everyone":
         if (context == "header") return renderNodes(node.content);
-        //TODO: mention
-        /*return (
-          <DiscordMention type={"role"} highlight>
-            {`@${type}`}
-          </DiscordMention>
-        );*/
-        return "";
+        return `<span mention>@${type}</span>`;
 
       case "codeBlock":
         if (context !== "reply") {

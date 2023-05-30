@@ -42,7 +42,7 @@ export function renderMarkdown(
 
       case "blockQuote":
         if (context == "reply") return renderNodes(node.content);
-        return ""; //TODO: quote
+        return `<blockquote><span></span><div>${renderNodes(node.content)}</div></blockquote>`;
 
       case "br":
       case "newline":

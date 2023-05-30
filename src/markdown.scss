@@ -45,4 +45,20 @@
       color: inherit;
     }
   }
+  blockquote {
+    display: flex;
+    margin: 0;
+
+    & > span {
+      display: block;
+      width: 4px;
+      border-radius: 4px;
+      background-color: var(--interactiveMuted);
+    }
+    & > div {
+      padding: 0 8px 0 12px;
+      box-sizing: border-box;
+      max-width: 100%;
+    }
+  }
 }

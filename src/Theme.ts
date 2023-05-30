@@ -1,17 +1,17 @@
 export interface DiscordTheme {
   background: string;
+  backgroundSecondary: string;
   backgroundTertiary: string;
   link: string;
-  spoiler: string;
   text: string;
   textMuted: string;
 }
 
 export const DiscordDarkTheme: DiscordTheme = {
   background: "#313338",
-  backgroundTertiary: "#2b2d31",
+  backgroundSecondary: "#2b2d31",
+  backgroundTertiary: "#1e1f22",
   link: "#00a8fc",
-  spoiler: "#1e1f22",
   text: "#dbdee1",
   textMuted: "#949ba4",
 };

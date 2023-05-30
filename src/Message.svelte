@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { DiscordDarkTheme, type DiscordTheme } from "Theme";
+  import { DiscordDarkTheme, themeString, type DiscordTheme } from "Theme";
   import Markdown from "markdown.svelte";
   import { type MarkdownRenderingContext } from "utils";
 
@@ -20,7 +20,7 @@
   export let context: MarkdownRenderingContext | undefined = undefined;
 </script>
 
-<div class="msg-container" style:background={theme.background} style:color={theme.text}>
+<div class="msg-container" style={themeString(theme)}>
   <img
     class="msg-avatar"
     src={author.avatarURL || "https://cdn.discordapp.com/embed/avatars/0.png"}
@@ -37,10 +37,13 @@
   <div class="msg-content">
     <Markdown {content} {theme} {context} />
   </div>
+  <slot />
 </div>
 
 <style lang="scss">
   .msg-container {
+    background: var(--background);
+    color: var(--text);
     word-wrap: break-word;
     position: relative;
     padding-left: 72px;

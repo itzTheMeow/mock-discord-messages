@@ -2,7 +2,7 @@
   import { DiscordDarkTheme, themeString, type DiscordTheme } from "Theme";
   import parseMarkdown from "discord-markdown-parser";
   import { renderMarkdown, type MarkdownRenderingContext, type MarkdownRenderingType } from "utils";
-  import "./markdown.css";
+  import "./markdown.scss";
 
   export let content: string | undefined;
   export let context: MarkdownRenderingContext | undefined = undefined;
@@ -13,10 +13,3 @@
 <span class="mdm-rendered-markdown" style={themeString(theme)}>
   {@html renderMarkdown(parseMarkdown(content || "", "extended"), context, type)}
 </span>
-
-<style>
-  .mdm-rendered-markdown {
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-  }
-</style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { DiscordDarkTheme, type DiscordTheme } from "Theme";
+  import { DiscordDarkTheme, themeString, type DiscordTheme } from "Theme";
 
   // adapted from https://github.com/cubedhuang/discord-embed-creator/blob/main/src/components/DiscordEmbed.tsx
   import type { APIEmbed, APIEmbedField } from "discord-api-types/v10";
@@ -47,7 +47,11 @@
   }
 </script>
 
-<div class="embed-container" style:border-left-color={embed.color || "#202225"}>
+<div
+  class="embed-container"
+  style={themeString(theme)}
+  style:border-color={embed.color?.toString(16).padStart(6, "0").padStart(7, "#") || ""}
+>
   <div class="embed-inner">
     {#if embed.author?.name || embed.author?.icon_url}
       <div class="embed-author">
@@ -105,48 +109,34 @@
       </div>
     {/if}
 
-    {#if embed.image}
-      <div
-        className={`min-w-0 block mt-4 max-w-[400px] max-h-[300px] justify-self-start rounded cursor-pointer overflow-hidden ${
-          embed.thumbnail ? "col-[1/3]" : "col-[1/1]"
-        }`}
-      >
-        <img className="object-contain max-h-full max-w-full" src={embed.image} alt={embed.image} />
+    {#if embed.image?.url}
+      <div class="embed-image" style:grid-column={embed.thumbnail?.url ? "1/3" : "1/1"}>
+        <img src={embed.image.url} alt={embed.image.url} />
       </div>
     {/if}
 
-    {#if embed.thumbnail}
-      <div
-        className="min-w-0 row-[1/8] col-[2/2] mt-2 ml-4 shrink-0 justify-self-end block max-w-20 max-h-20 rounded-[3px] cursor-pointer overflow-hidden"
-      >
-        <img
-          className="object-contain max-h-full max-w-full"
-          src={embed.thumbnail}
-          alt={embed.thumbnail}
-        />
+    {#if embed.thumbnail?.url}
+      <div class="embed-thumbnail">
+        <img src={embed.thumbnail.url} alt={embed.thumbnail.url} />
       </div>
     {/if}
 
-    {#if embed.footer.text || embed.footer.iconUrl}
-      <div
-        className={`min-w-0 flex items-center mt-2 row-auto ${
-          embed.thumbnail ? "col-[1/3]" : "col-[1/1]"
-        }`}
-      >
-        {#if embed.footer.iconUrl}
-          <img
-            className="h-5 w-5 rounded-full mr-2 object-contain"
-            src={embed.footer.iconUrl}
-            alt=""
-          />
+    {#if embed.footer?.text || embed.footer?.icon_url || embed.timestamp}
+      <div class="embed-footer" style:grid-column={embed.thumbnail?.url ? "1/3" : "1/1"}>
+        {#if embed.footer?.icon_url}
+          <img class="embed-footer-image" src={embed.footer.icon_url} alt="" />
         {/if}
 
-        <div className="min-w-0 text-xs font-medium">
-          {embed.footer.text}
-          {#if embed.footer.text && embed.timestamp}
-            <span className="inline-block mx-1"> &bull; </span>
+        <div class="embed-footer-content">
+          {#if embed.footer?.text}
+            {embed.footer.text}
           {/if}
-          {embed.timestamp ? "Today at 12:00 PM" : null}
+          {#if embed.footer?.text && embed.timestamp}
+            <span class="embed-footer-split">&bull;</span>
+          {/if}
+          {#if embed.timestamp}
+            {new Date(embed.timestamp).toLocaleString()}
+          {/if}
         </div>
       </div>
     {/if}
@@ -155,8 +145,7 @@
 
 <style lang="scss">
   .embed-container {
-    border-left-width: 4px;
-    border-style: solid;
+    border-left: 4px solid var(--backgroundTertiary);
     position: relative;
     display: grid;
     width: fit-content;
@@ -164,7 +153,9 @@
     box-sizing: border-box;
     border-radius: 0.25rem;
     line-height: 1.375rem;
-    background: #2f3136;
+    background: var(--backgroundSecondary);
+    margin-top: 0.125rem;
+    margin-bottom: 0.125rem;
   }
   .embed-inner {
     overflow: hidden;
@@ -193,6 +184,7 @@
     font-size: 0.875rem;
     line-height: 1.25rem;
     font-weight: 600;
+    text-decoration: none;
 
     &:not(.has-url) {
       cursor: text;
@@ -208,8 +200,9 @@
     margin-top: 0.5rem;
     font-weight: 600;
     min-width: 0;
+    text-decoration: none;
 
-    & :not(.has-url) {
+    &:not(.has-url) {
       cursor: text;
     }
     &.has-url {
@@ -253,5 +246,70 @@
     font-weight: 400;
     white-space: pre-line;
     min-width: 0;
+  }
+
+  .embed-image {
+    display: block;
+    overflow: hidden;
+    margin-top: 1rem;
+    justify-self: start;
+    min-width: 0;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    max-width: 400px;
+    max-height: 300px;
+
+    img {
+      object-fit: contain;
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  .embed-thumbnail {
+    display: block;
+    overflow: hidden;
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+    justify-self: end;
+    min-width: 0;
+    max-width: 5rem;
+    max-height: 5rem;
+    cursor: pointer;
+    grid-row: 1/8;
+    grid-column: 2/2;
+    border-radius: 3px;
+
+    img {
+      object-fit: contain;
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  .embed-footer {
+    display: flex;
+    margin-top: 0.5rem;
+    align-items: center;
+    min-width: 0;
+    grid-row: auto;
+  }
+  .embed-footer-image {
+    object-fit: contain;
+    margin-right: 0.5rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 9999px;
+  }
+  .embed-footer-content {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 500;
+    min-width: 0;
+  }
+  .embed-footer-split {
+    display: inline-block;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
   }
 </style>

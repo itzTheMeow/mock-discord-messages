@@ -13,3 +13,10 @@
 <span class="mdm-rendered-markdown" style={themeString(theme)}>
   {@html renderMarkdown(parseMarkdown(content || "", "extended"), context, type)}
 </span>
+
+<style>
+  .mdm-rendered-markdown {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+  }
+</style>

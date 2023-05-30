@@ -1,9 +1,19 @@
 <script lang="ts">
+  import { DiscordDarkTheme, type DiscordTheme } from "Theme";
+
   // adapted from https://github.com/cubedhuang/discord-embed-creator/blob/main/src/components/DiscordEmbed.tsx
   import type { APIEmbed, APIEmbedField } from "discord-api-types/v10";
+  import Markdown from "markdown.svelte";
+  import type { MarkdownRenderingContext } from "utils";
 
+  /** The embed JSON to render. */
   export let embed: APIEmbed;
+  /** Theme to use for the message rendering. Defaults to `DiscordDarkTheme`. */
+  export let theme: DiscordTheme = DiscordDarkTheme;
+  /** Object with users and channels to use for markdown parsing. */
+  export let context: MarkdownRenderingContext | undefined = undefined;
 
+  let fieldGridCols: string[] = [];
   $: {
     const fieldRows: APIEmbedField[][] = [];
 
@@ -26,14 +36,14 @@
       }
     }
 
-    const fieldGridCols: string[] = [];
-
+    const newcols: string[] = [];
     for (const row of fieldRows) {
       const step = 12 / row.length;
       for (let i = 1; i < 13; i += step) {
-        fieldGridCols.push(`${i}/${i + step}`);
+        newcols.push(`${i}/${i + step}`);
       }
     }
+    fieldGridCols = newcols;
   }
 </script>
 
@@ -68,36 +78,27 @@
         target="_blank"
         rel="noopener noreferrer"
         role="button"
-        className={`min-w-0 text-white inline-block font-semibold col-[1/1] mt-2 ${
-          embed.url ? "hover:underline text-[#00b0f4]" : "cursor-text"
-        }`}
+        class="embed-title {embed.url ? 'has-url' : ''}"
       >
-        <Markdown type="header">{embed.title}</Markdown>
+        <Markdown content={embed.title} {theme} {context} type="header" />
       </a>
     {/if}
 
     {#if embed.description}
-      <div className="min-w-0 text-sm font-normal whitespace-pre-line col-[1/1] mt-2">
-        <Markdown>{embed.description}</Markdown>
+      <div class="embed-description">
+        <Markdown content={embed.description} {theme} {context} />
       </div>
     {/if}
 
-    {#if embed.fields.length}
-      <div className="min-w-0 grid col-[1/1] mt-2 gap-2">
-        {#each embed.fields as field, index}
-          <div
-            key={index}
-            className="min-w-0 text-sm leading-[1.125rem] font-normal"
-            style={{ gridColumn: fieldGridCols[index] }}
-          >
-            <div className="min-w-0 text-white font-semibold mb-0.5">
-              <Markdown type="header">
-                {field.name}
-              </Markdown>
+    {#if embed.fields?.length}
+      <div class="embed-fields">
+        {#each embed.fields as field, index (index)}
+          <div class="embed-field" style:grid-column={fieldGridCols[index]}>
+            <div class="embed-field-title">
+              <Markdown content={field.name} {theme} {context} type="header" />
             </div>
-
-            <div className="min-w-0 font-normal whitespace-pre-line">
-              <Markdown>{field.value}</Markdown>
+            <div class="embed-field-content">
+              <Markdown content={field.value} {theme} {context} />
             </div>
           </div>
         {/each}
@@ -152,7 +153,7 @@
   </div>
 </div>
 
-<style>
+<style lang="scss">
   .embed-container {
     border-left-width: 4px;
     border-style: solid;
@@ -192,11 +193,65 @@
     font-size: 0.875rem;
     line-height: 1.25rem;
     font-weight: 600;
+
+    &:not(.has-url) {
+      cursor: text;
+    }
+    &.has-url:hover {
+      text-decoration: underline;
+    }
   }
-  .embed-author-text:not(.has-url) {
-    cursor: text;
+
+  .embed-title {
+    grid-column: 1/1;
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    min-width: 0;
+
+    & :not(.has-url) {
+      cursor: text;
+    }
+    &.has-url {
+      color: var(--link);
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
-  .embed-author-text.has-url:hover {
-    text-decoration: underline;
+
+  .embed-description {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    white-space: pre-line;
+    min-width: 0;
+    grid-column: 1/1;
+  }
+
+  .embed-fields {
+    display: grid;
+    margin-top: 0.5rem;
+    min-width: 0;
+    gap: 0.5rem;
+    grid-column: 1/1;
+  }
+  .embed-field {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    min-width: 0;
+  }
+  .embed-field-title {
+    margin-bottom: 0.125rem;
+    color: #ffffff;
+    font-weight: 600;
+    min-width: 0;
+  }
+  .embed-field-content {
+    font-weight: 400;
+    white-space: pre-line;
+    min-width: 0;
   }
 </style>

@@ -35,11 +35,11 @@
     {/if}
   </div>
   <div class="msg-content">
-    <Markdown {content} />
+    <Markdown {content} {theme} {context} />
   </div>
 </div>
 
-<style>
+<style lang="scss">
   .msg-container {
     word-wrap: break-word;
     position: relative;

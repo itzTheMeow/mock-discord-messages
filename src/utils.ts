@@ -11,7 +11,7 @@ export function escapeHTML(html: string): string {
 }
 
 export interface MarkdownRenderingContext {}
-export type MarkdownRenderingType = "content" | "reply";
+export type MarkdownRenderingType = "content" | "reply" | "header";
 
 export function renderMarkdown(
   parsed: ASTNode[],
@@ -42,15 +42,16 @@ export function renderMarkdown(
 
       case "blockQuote":
         if (context == "reply") return renderNodes(node.content);
-
         return ""; //TODO: quote
 
       case "br":
       case "newline":
         if (context == "reply") return " ";
-        return "<br/>";
+        else if (context == "content") return "<br/>";
+        else return "";
 
       case "channel": {
+        if (context == "header") return renderNodes(node.content);
         const id: string = node.id;
         //const channel = await context.callbacks.resolveChannel(id);
 
@@ -68,6 +69,7 @@ export function renderMarkdown(
       }
 
       case "role": {
+        if (context == "header") return renderNodes(node.content);
         const id: string = node.id;
         //const role = await context.callbacks.resolveRole(id);
 
@@ -84,6 +86,7 @@ export function renderMarkdown(
       }
 
       case "user": {
+        if (context == "header") return renderNodes(node.content);
         const id: string = node.id;
         //const user = await context.callbacks.resolveUser(id);
 
@@ -94,6 +97,7 @@ export function renderMarkdown(
 
       case "here":
       case "everyone":
+        if (context == "header") return renderNodes(node.content);
         //TODO: mention
         /*return (
           <DiscordMention type={"role"} highlight>
@@ -137,6 +141,7 @@ export function renderMarkdown(
 
       case "emoji":
       case "twemoji":
+        if (context == "header") return renderNodes(node.content);
         //TODO: emoji
         /*return (
           <DiscordCustomEmoji
@@ -149,6 +154,7 @@ export function renderMarkdown(
         return "";
 
       case "timestamp":
+        if (context == "header") return renderNodes(node.content);
         //TODO: timestamp
         //return <DiscordTime timestamp={parseInt(node.timestamp) * 1000} format={node.format} />;*/
         return "";

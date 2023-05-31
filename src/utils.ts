@@ -24,7 +24,6 @@ export function renderMarkdown(
   data: MarkdownRenderingContext = {},
   context: MarkdownRenderingType = "content"
 ): string {
-  console.log(parsed);
   // adapted from https://github.com/ItzDerock/discord-html-transcripts/blob/master/src/generator/renderers/content.tsx
   const renderNodes = (nodes: ASTNode): string =>
     Array.isArray(nodes) ? nodes.map((node) => renderASTNode(node)).join("") : renderASTNode(nodes);

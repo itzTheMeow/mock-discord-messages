@@ -1,23 +1,24 @@
 {
-  "name": "svelte-daisyui-template",
-  "version": "1.0.0",
-  "description": "Svelte, TypeScript, and DaisyUI template.",
-  "main": "serverDist/build.js",
+  "name": "mock-discord-messages",
+  "version": "0.0.1",
+  "description": "A Svelte library to create mock discord messages or embeds.",
+  "main": "src/index.ts",
   "scripts": {
     "build": "tsc -b tsconfig.json",
-    "start": "npm run build && node .",
-    "dev": "npm run build && node . --watch"
+    "start": "npm run build && node serverDist/build.js",
+    "dev": "npm run build && node serverDist/build.js --watch",
+    "pub": "pnpm publish"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/itzTheMeow/svelte-daisyui-template.git"
+    "url": "git+https://github.com/itzTheMeow/mock-discord-messages.git"
   },
   "author": "Meow",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/itzTheMeow/svelte-daisyui-template/issues"
+    "url": "https://github.com/itzTheMeow/mock-discord-messages/issues"
   },
-  "homepage": "https://github.com/itzTheMeow/svelte-daisyui-template#readme",
+  "homepage": "https://github.com/itzTheMeow/mock-discord-messages#readme",
   "devDependencies": {
     "@tsconfig/svelte": "^4.0.1",
     "@types/express": "^4.17.13",

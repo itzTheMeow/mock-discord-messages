@@ -86,4 +86,15 @@
       filter: brightness(150%);
     }
   }
+  span[emoji] {
+    display: inline-block;
+    vertical-align: bottom;
+
+    img {
+      object-fit: contain;
+      width: 1.375rem;
+      height: 1.375rem;
+      vertical-align: bottom;
+    }
+  }
 }

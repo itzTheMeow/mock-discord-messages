@@ -24,6 +24,7 @@ export function renderMarkdown(
   data: MarkdownRenderingContext = {},
   context: MarkdownRenderingType = "content"
 ): string {
+  console.log(parsed);
   // adapted from https://github.com/ItzDerock/discord-html-transcripts/blob/master/src/generator/renderers/content.tsx
   const renderNodes = (nodes: ASTNode): string =>
     Array.isArray(nodes) ? nodes.map((node) => renderASTNode(node)).join("") : renderASTNode(nodes);
@@ -120,16 +121,9 @@ export function renderMarkdown(
       case "emoji":
       case "twemoji":
         if (context == "header") return renderNodes(node.content);
-        //TODO: emoji
-        /*return (
-          <DiscordCustomEmoji
-            name={node.name}
-            url={parseDiscordEmoji(node as APIMessageComponentEmoji)}
-            embedEmoji={context.type === RenderType.EMBED}
-            largeEmoji={context._internal?.largeEmojis}
-          />
-        );*/
-        return "";
+        return `<span emoji><img src="${parseDiscordEmoji(<any>node)}" alt=":${
+          node.name
+        }:" /></span>`;
 
       case "timestamp":
         // can adapt from https://github.com/ItzDerock/discord-components/blob/main/packages/core/src/components/discord-time/discord-time.tsx

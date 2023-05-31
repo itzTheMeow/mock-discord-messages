@@ -92,6 +92,10 @@ clean:
     rm -rf $(BUILDDIR)/*
 \`\`\``}
 />
+<Message
+  author={{ username: "Emojis" }}
+  content="<:megamind:1056108486754312223> emoji test with 🤡 emojis"
+/>
 
 <style>
   /*

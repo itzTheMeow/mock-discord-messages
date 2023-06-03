@@ -18,9 +18,11 @@
   export let theme: DiscordTheme = DiscordDarkTheme;
   /** Object with users and channels to use for markdown parsing. */
   export let context: MarkdownRenderingContext = {};
+  /** Additional style to apply to the container. */
+  export let style: string = "";
 </script>
 
-<div class="msg-container" style={themeString(theme)}>
+<div class="msg-container" style={themeString(theme) + style}>
   <img
     class="msg-avatar"
     src={author.avatarURL || "https://cdn.discordapp.com/embed/avatars/0.png"}

@@ -1,6 +1,6 @@
 {
   "name": "mock-discord-messages",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A Svelte library to create mock discord messages or embeds.",
   "main": "src/index.ts",
   "scripts": {

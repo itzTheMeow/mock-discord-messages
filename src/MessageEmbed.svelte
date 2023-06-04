@@ -56,12 +56,7 @@
     {#if embed.author?.name || embed.author?.icon_url}
       <div class="embed-author">
         {#if embed.author.icon_url}
-          <img
-            class="embed-author-image"
-            src={embed.author.icon_url}
-            alt=""
-            crossorigin="anonymous"
-          />
+          <img class="embed-author-image" src={embed.author.icon_url} alt="" />
         {/if}
 
         <a

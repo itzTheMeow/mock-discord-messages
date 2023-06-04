@@ -26,7 +26,6 @@
   <img
     class="msg-avatar"
     src={author.avatarURL || "https://cdn.discordapp.com/embed/avatars/0.png"}
-    crossorigin="anonymous"
   />
   <div class="msg-header">
     <span class="msg-username" style:color={author.color || "inherit"}>{author.username}</span>
